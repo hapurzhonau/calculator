@@ -3,7 +3,7 @@ import unicorn from 'eslint-plugin-unicorn';
 
 export default [
   {
-    ignores: ['node_modules', 'dist', '.husky'],
+    ignores: ['node_modules', 'dist', '.husky', '**/*.html'],
   },
   js.configs.recommended,
   {
