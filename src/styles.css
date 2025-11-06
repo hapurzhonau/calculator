@@ -6,15 +6,16 @@
 
 :root {
   --white: #ffffff;
-  --ultralight-gray: #aeaeae;
+  --ultralight-gray: #b0b0b0;
   --light-gray: #9c9c9c;
   --gray: #626262;
-  --dark-gray: #484848;
+  --dark-gray: #535353;
   --orange: #ffa845;
   --radius: 10px;
   --duration: 0.3s;
   --padding-container: 18px;
   --padding-button: 5px;
+  --font-size: 1rem;
 }
 
 body {
@@ -22,8 +23,8 @@ body {
   color: var(--white);
   font-family: Arial;
   display: flex;
-  height: 100dvh;
-  padding-inline: var(--padding-container);
+  padding: var(--padding-container);
+  align-items: start;
 }
 button {
   border: none;
@@ -33,37 +34,189 @@ button {
 }
 .wrapper {
   margin: auto;
-  max-width: fit-content;
+  max-width: 50rem;
   width: 100%;
   border-radius: var(--radius);
+  overflow: hidden;
   box-shadow: 0 0 10px var(--dark-gray);
+  container-name: scrn-result;
+  container-type: inline-size;
 }
 .screen-result {
+  min-height: fit-content;
   display: flex;
   flex-direction: row-reverse;
   background-color: var(--dark-gray);
   border-radius: var(--radius) var(--radius) 0 0;
   padding: var(--padding-button);
+  align-items: end;
+}
+@container scrn-result (width > 1px) {
+  .screen-result {
+    font-size: 10cqw;
+  }
 }
 .buttons-wrapper {
+  background-color: var(--gray);
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+  aspect-ratio: 8/4;
   display: grid;
-  /* grid-area: ; */
+  grid-template-areas:
+    'm-clear m-add m-subtract m-recall m-all-clear plus-minus percent divide'
+    'squared cubed power ten-power seven eight nine multiply'
+    'inverse sqrt cbrt yroot four five six subtract'
+    '. . . factorial one two three add'
+    '. . . . . zero dot equals';
+  container-name: btn-wrapper;
+  container-type: inline-size;
 }
+
 .btn {
-  width: 2rem;
-  aspect-ratio: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   user-select: none;
   background-color: var(--gray);
+  border-left: 1px solid var(--dark-gray);
+  border-bottom: 1px solid var(--dark-gray);
+  max-width: 100%;
+  width: 100%;
+}
+@container btn-wrapper (width > 1px) {
+  .btn,
+  .btn.light-gray {
+    font-size: 4cqw;
+  }
+  .btn.orange {
+    font-size: 5cqw;
+  }
 }
 .btn:hover {
-  filter: brightness(130%);
+  filter: brightness(110%);
 }
 .btn:active {
-  filter: brightness(80%);
+  filter: brightness(95%);
 }
 .btn.orange {
   background-color: var(--orange);
+  border-left: 1px solid var(--gray);
+  border-bottom: 1px solid var(--gray);
 }
 .btn.light-gray {
   background-color: var(--light-gray);
+  border-left: 1px solid var(--gray);
+  border-bottom: 1px solid var(--gray);
+}
+.btn.zero,
+.btn.dot,
+.btn.equals {
+  border-bottom: none;
+}
+.btn.m-clear,
+.btn.squared,
+.btn.inverse {
+  border-left: none;
+}
+
+.m-clear {
+  grid-area: m-clear;
+}
+.m-add {
+  grid-area: m-add;
+}
+.m-subtract {
+  grid-area: m-subtract;
+}
+.m-recall {
+  grid-area: m-recall;
+}
+.m-all-clear {
+  grid-area: m-all-clear;
+}
+.plus-minus {
+  grid-area: plus-minus;
+}
+.percent {
+  grid-area: percent;
+}
+.divide {
+  grid-area: divide;
+}
+
+.squared {
+  grid-area: squared;
+}
+.cubed {
+  grid-area: cubed;
+}
+.power {
+  grid-area: power;
+}
+.ten-power {
+  grid-area: ten-power;
+}
+.seven {
+  grid-area: seven;
+}
+.eight {
+  grid-area: eight;
+}
+.nine {
+  grid-area: nine;
+}
+.multiply {
+  grid-area: multiply;
+}
+
+.inverse {
+  grid-area: inverse;
+}
+.sqrt {
+  grid-area: sqrt;
+}
+.cbrt {
+  grid-area: cbrt;
+}
+.yroot {
+  grid-area: yroot;
+}
+.four {
+  grid-area: four;
+}
+.five {
+  grid-area: five;
+}
+.six {
+  grid-area: six;
+}
+.subtract {
+  grid-area: subtract;
+}
+
+.factorial {
+  grid-area: factorial;
+}
+.one {
+  grid-area: one;
+}
+.two {
+  grid-area: two;
+}
+.three {
+  grid-area: three;
+}
+.add {
+  grid-area: add;
+}
+
+.zero {
+  grid-area: zero;
+  grid-column: 5/7;
+}
+.dot {
+  grid-area: dot;
+}
+.equals {
+  grid-area: equals;
 }
