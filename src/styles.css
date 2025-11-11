@@ -33,9 +33,10 @@ button {
   background-color: inherit;
 }
 .wrapper {
-  margin: auto;
+  margin: 0 auto;
   max-width: 50rem;
-  width: 100%;
+  width: min(100vw, 90dvh * 8 / 5);
+  height: auto;
   border-radius: var(--radius);
   overflow: hidden;
   box-shadow: 0 0 10px var(--dark-gray);

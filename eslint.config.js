@@ -8,11 +8,21 @@ export default [
   js.configs.recommended,
   {
     files: ['**/*.js'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: {
+        window: 'readonly',
+        document: 'readonly',
+        console: 'readonly',
+      },
+    },
     plugins: {
       unicorn,
     },
     rules: {
-      'no-unused-vars': 'error',
+      'no-undef': 'warn',
+      'no-unused-vars': 'warn',
       'no-console': 'warn',
       'unicorn/filename-case': [
         'error',
