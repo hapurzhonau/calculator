@@ -68,7 +68,7 @@ button {
     'squared cubed power ten-power seven eight nine multiply'
     'inverse sqrt cbrt yroot four five six subtract'
     '. . . factorial one two three add'
-    '. . . . . zero dot equals';
+    '. . . . undo zero dot equals';
   container-name: btn-wrapper;
   container-type: inline-size;
 }
@@ -109,9 +109,11 @@ button {
   border-left: 1px solid var(--gray);
   border-bottom: 1px solid var(--gray);
 }
+
 .btn.zero,
 .btn.dot,
-.btn.equals {
+.btn.equals,
+.btn.undo {
   border-bottom: none;
 }
 .btn.m-clear,
@@ -214,6 +216,10 @@ button {
 .zero {
   grid-area: zero;
   grid-column: 5/7;
+}
+.undo {
+  grid-area: undo;
+  grid-column: 4/5;
 }
 .dot {
   grid-area: dot;
