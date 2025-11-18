@@ -47,6 +47,7 @@ button {
   min-height: fit-content;
   display: flex;
   flex-direction: row-reverse;
+  flex-wrap: nowrap;
   background-color: var(--dark-gray);
   border-radius: var(--radius) var(--radius) 0 0;
   padding: var(--padding-button);
@@ -90,7 +91,7 @@ button {
     font-size: 4cqw;
   }
   .btn.orange {
-    font-size: 5cqw;
+    font-size: 1rem;
   }
 }
 .btn:hover {

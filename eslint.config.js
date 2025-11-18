@@ -24,12 +24,6 @@ export default [
       'no-undef': 'warn',
       'no-unused-vars': 'warn',
       'no-console': 'warn',
-      'unicorn/filename-case': [
-        'error',
-        {
-          case: 'kebabCase',
-        },
-      ],
       'unicorn/prevent-abbreviations': 'error',
       'unicorn/prefer-dom-node-append': 'error',
       'unicorn/prefer-dom-node-remove': 'error',

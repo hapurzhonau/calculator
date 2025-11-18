@@ -1,7 +1,8 @@
 import { calculatorState } from '../core/calculator.js';
 
+const screen = document.querySelector('.screen-result');
+
 export function updateDisplay() {
-  const screen = document.querySelector('.screen-result');
   screen.textContent = calculatorState.currentValue;
 }
 
@@ -28,3 +29,17 @@ export function appendDigit(digit) {
   }
   updateDisplay();
 }
+
+export const handleOperation = operation => {
+  const current = calculatorState.currentValue;
+  const operations = ['+', '-', '×', '÷'];
+  const hasLastOperation = operations.includes(current[current.length - 1]);
+  if (hasLastOperation) {
+    calculatorState.currentValue =
+      calculatorState.currentValue.slice(0, -1) + operation;
+  } else {
+    calculatorState.currentValue += operation;
+  }
+  calculatorState.operation = operation;
+  updateDisplay();
+};
