@@ -1,6 +1,7 @@
 import { calculatorState } from '../core/calculator.js';
 
-const screen = document.querySelector('.screen-result');
+export const screen = document.querySelector('.screen-result');
+export const OPERATIONS = new Set(['+', '-', '×', '÷']);
 
 export function updateDisplay() {
   screen.textContent = calculatorState.currentValue;
@@ -14,29 +15,34 @@ export function clearAll() {
 }
 
 export function appendDigit(digit) {
+  const current = calculatorState.currentValue;
+  const hasLastOperation = OPERATIONS.has(current[current.length - 1]);
+  const lastNumber = getLastNumber(current);
+
   if (digit === '.') {
-    if (calculatorState.currentValue.includes('.')) {
-      return;
-    }
+    if (lastNumber.includes('.')) return;
+    if (hasLastOperation) calculatorState.currentValue += '0';
     calculatorState.currentValue += '.';
     updateDisplay();
     return;
   }
-  if (calculatorState.currentValue === '0') {
-    calculatorState.currentValue = digit;
-  } else {
-    calculatorState.currentValue += digit;
-  }
+  if (digit == 0) if (lastNumber === '0') return;
+  if (current === '0') calculatorState.currentValue = digit;
+  else calculatorState.currentValue += digit;
   updateDisplay();
+
+  function getLastNumber(expression) {
+    const parts = expression.split(/[+\-×÷]/);
+    return parts[parts.length - 1];
+  }
 }
 
 export const handleOperation = operation => {
   const current = calculatorState.currentValue;
-  const operations = ['+', '-', '×', '÷'];
-  const hasLastOperation = operations.includes(current[current.length - 1]);
+  const hasLastOperation = OPERATIONS.has(current[current.length - 1]);
+
   if (hasLastOperation) {
-    calculatorState.currentValue =
-      calculatorState.currentValue.slice(0, -1) + operation;
+    calculatorState.currentValue = current.slice(0, -1) + operation;
   } else {
     calculatorState.currentValue += operation;
   }
