@@ -1,4 +1,4 @@
-import { calculatorState } from '../core/calculator.js';
+import { calculate, calculatorState } from '../core/calculator.js';
 
 export const screen = document.querySelector('.screen-result');
 export const OPERATIONS = new Set(['+', '-', '×', '÷']);
@@ -11,41 +11,50 @@ export function clearAll() {
   calculatorState.currentValue = '0';
   calculatorState.previousValue = null;
   calculatorState.operation = null;
+  calculatorState.shouldResetScreen = false;
   updateDisplay();
 }
 
 export function appendDigit(digit) {
-  const current = calculatorState.currentValue;
-  const hasLastOperation = OPERATIONS.has(current[current.length - 1]);
-  const lastNumber = getLastNumber(current);
+  if (calculatorState.shouldResetScreen) {
+    if (digit === '.') {
+      calculatorState.currentValue = '0.';
+    } else {
+      calculatorState.currentValue = digit;
+    }
+    calculatorState.shouldResetScreen = false;
+  } else {
+    const current = calculatorState.currentValue;
+    const lastNumber = getLastNumber(current);
 
-  if (digit === '.') {
-    if (lastNumber.includes('.')) return;
-    if (hasLastOperation) calculatorState.currentValue += '0';
-    calculatorState.currentValue += '.';
-    updateDisplay();
-    return;
+    if (digit === '.') {
+      if (lastNumber.includes('.')) return;
+      calculatorState.currentValue += '.';
+    } else if (digit === '0' && lastNumber === '0') {
+      return;
+    } else if (current === '0') {
+      calculatorState.currentValue = digit;
+    } else {
+      calculatorState.currentValue += digit;
+    }
   }
-  if (digit == 0) if (lastNumber === '0') return;
-  if (current === '0') calculatorState.currentValue = digit;
-  else calculatorState.currentValue += digit;
   updateDisplay();
-
-  function getLastNumber(expression) {
-    const parts = expression.split(/[+\-×÷]/);
-    return parts[parts.length - 1];
-  }
 }
 
-export const handleOperation = operation => {
-  const current = calculatorState.currentValue;
-  const hasLastOperation = OPERATIONS.has(current[current.length - 1]);
-
-  if (hasLastOperation) {
-    calculatorState.currentValue = current.slice(0, -1) + operation;
+export function handleOperation(operation) {
+  if (calculatorState.operation && calculatorState.previousValue !== null) {
+    const result = calculate();
+    calculatorState.currentValue = result.toString();
+    calculatorState.previousValue = result;
   } else {
-    calculatorState.currentValue += operation;
+    calculatorState.previousValue = parseFloat(calculatorState.currentValue);
   }
   calculatorState.operation = operation;
+  calculatorState.shouldResetScreen = true;
   updateDisplay();
-};
+}
+
+function getLastNumber(expression) {
+  const parts = expression.split(/[+\-×÷]/);
+  return parts[parts.length - 1];
+}

@@ -6,11 +6,12 @@ const wrapper = document.querySelector('.wrapper');
 
 wrapper.addEventListener('click', event => {
   const button = event.target;
+  if (!button) return;
+
   if (button.classList.contains('digit')) {
     const digit = button.textContent;
     appendDigit(digit);
   }
-  screen.textContent = calculatorState.currentValue;
 
   if (
     button.classList.contains('orange') &&
