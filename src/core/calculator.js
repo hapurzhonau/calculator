@@ -5,6 +5,7 @@ export const calculatorState = {
   shouldResetScreen: true,
   memory: 0,
 };
+
 export function calculate() {
   if (
     calculatorState.currentValue !== null &&
@@ -24,7 +25,8 @@ export function calculate() {
       result = calculatorState.previousValue * current;
       break;
     case '÷':
-      result = calculatorState.previousValue / current;
+      if (current === 0) result = "Can't divide by zero";
+      else result = calculatorState.previousValue / current;
       break;
     default:
       result = current;

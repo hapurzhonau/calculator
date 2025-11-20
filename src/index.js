@@ -1,7 +1,7 @@
-import { calculatorState } from './core/calculator.js';
-import { appendDigit, clearAll, handleOperation } from './display/display.js';
+import { digitCommand } from './commands/digitCommand.js';
+import { operationCommand } from './commands/operationCommand.js';
+import { clearAll } from './display/display.js';
 
-const screen = document.querySelector('.screen-result');
 const wrapper = document.querySelector('.wrapper');
 
 wrapper.addEventListener('click', event => {
@@ -9,18 +9,14 @@ wrapper.addEventListener('click', event => {
   if (!button) return;
 
   if (button.classList.contains('digit')) {
-    const digit = button.textContent;
-    appendDigit(digit);
+    const command = digitCommand(button.textContent);
+    command.execute();
   }
 
-  if (
-    button.classList.contains('orange') ||
-    button.classList.contains('equals')
-  ) {
-    const operation = button.textContent;
-    handleOperation(operation);
+  if (button.classList.contains('orange')) {
+    const command = operationCommand(button.textContent);
+    command.execute();
   }
-  screen.textContent = calculatorState.currentValue;
 
   if (button.classList.contains('m-all-clear')) clearAll();
 });
