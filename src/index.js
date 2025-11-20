@@ -14,16 +14,13 @@ wrapper.addEventListener('click', event => {
   }
 
   if (
-    button.classList.contains('orange') &&
-    !button.classList.contains('equals')
+    button.classList.contains('orange') ||
+    button.classList.contains('equals')
   ) {
     const operation = button.textContent;
     handleOperation(operation);
   }
   screen.textContent = calculatorState.currentValue;
-});
 
-const mAllClear = document.querySelector('.m-all-clear');
-mAllClear.addEventListener('click', () => {
-  clearAll();
+  if (button.classList.contains('m-all-clear')) clearAll();
 });
